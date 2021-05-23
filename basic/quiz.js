@@ -22,7 +22,7 @@ console.log("end");
 1.start
 2.IIFE
 3.end
-4.Timeout  (Javascript 把事件分為同步跟非同步, 會先把快的先完成?)
+4.Timeout  (Javascript 把事件分為同步跟非同步, 為了不塞車會先執行後面的程式)
 
 console.log("start");
 
