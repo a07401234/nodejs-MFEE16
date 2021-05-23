@@ -1,75 +1,75 @@
-// (1) 請問下列程式執行後的結果為何？為什麼？
+(1) 請問下列程式執行後的結果為何？為什麼？
 
-// 1.start
-// 2.IIFE
-// 3.end
-// 4.Timeout  (因為有設定1秒延遲)
+1.start
+2.IIFE
+3.end
+4.Timeout  (因為有設定1秒延遲)
 
-// console.log("start");
+console.log("start");
 
-// (function () {
-//   console.log("IIFE");
-//   setTimeout(function () {
-//     console.log("Timeout");
-//   }, 1000);
-// })();
+(function () {
+  console.log("IIFE");
+  setTimeout(function () {
+    console.log("Timeout");
+  }, 1000);
+})();
 
-// console.log("end");
-
-
-// (2) 請問下列程式執行的結果為何？為什麼？
-
-// 1.start
-// 2.IIFE
-// 3.end
-// 4.Timeout  (Javascript 是單一執行緒, 一次只做一件事, 會先把快的先完成?)
-
-// console.log("start");
-
-// (function () {
-//   console.log("IIFE");
-//   setTimeout(function () {
-//     console.log("Timeout");
-//   }, 0);
-// })();
-
-// console.log("end");
+console.log("end");
 
 
-// (3) 請問下列程式執行的結果為何？為什麼？
+(2) 請問下列程式執行的結果為何？為什麼？
 
-// 1.foo
-// 2.bar
-// 3.baz
+1.start
+2.IIFE
+3.end
+4.Timeout  (Javascript 是單一執行緒, 會先把快的先完成?)
 
-// const bar = () => console.log("bar");
+console.log("start");
 
-// const baz = () => console.log("baz");
+(function () {
+  console.log("IIFE");
+  setTimeout(function () {
+    console.log("Timeout");
+  }, 0);
+})();
 
-// const foo = () => {
-//     console.log("foo");
-//     bar();
-//     baz();
-// };
-
-// foo();
-
-
-// (4) 請問下列程式執行的結果為何？為什麼？
-
-// 1.foo
-// 2.bar
-// 3.baz
+console.log("end");
 
 
-// const bar = () => console.log("bar");
+(3) 請問下列程式執行的結果為何？為什麼？
 
-// const baz = () => console.log("baz");
+1.foo
+2.bar
+3.baz
 
-// const foo = () => {
-//     console.log("foo");
-//     setTimeout(bar, 0);
-//     baz();
-// };
+const bar = () => console.log("bar");
 
-// foo();
+const baz = () => console.log("baz");
+
+const foo = () => {
+    console.log("foo");
+    bar();
+    baz();
+};
+
+foo();
+
+
+(4) 請問下列程式執行的結果為何？為什麼？
+
+1.foo
+2.bar
+3.baz
+
+
+const bar = () => console.log("bar");
+
+const baz = () => console.log("baz");
+
+const foo = () => {
+    console.log("foo");
+    setTimeout(bar, 0);
+    baz();
+};
+
+foo();
