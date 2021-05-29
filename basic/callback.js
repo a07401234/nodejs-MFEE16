@@ -8,19 +8,23 @@ let doWork = function (job, timer, cb) {
   let dt = new Date();
   console.log(`開始工作 at ${dt.toISOString()}`);
 
+// 只用callback完成同步 （一層包一層）
+// 先刷牙
   doWork("刷牙", 2000, function (err, result) {
     if (err) {
       console.error(err);
       return;
     }
     console.log(result);
-    doWork("吃早餐", 4000, function (err, result) {
+    // 再吃早餐
+    doWork("吃早餐", 2000, function (err, result) {
         if (err) {
           console.error(err);
           return;
         }
         console.log(result);
-        doWork("寫功課", 6000, function (err, result) {
+        // 最後寫功課
+        doWork("寫功課", 2000, function (err, result) {
             if (err) {
               console.error(err);
               return;
