@@ -11,3 +11,4 @@ function sum(n) {
   console.log(sum(10)); // 55
   console.log(sum(100000)); // 5000050000
   
+  
