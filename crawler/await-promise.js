@@ -15,21 +15,23 @@ function rfPromise() {
 }
 async function awaitResponse() {
   try {
-    let rfrep = await rfPromise();
-    let axrep = await axios.get(
+    let rfRep = await rfPromise();
+    let axRep = await axios.get(
       "https://www.twse.com.tw/exchangeReport/STOCK_DAY",
       {
         params: {
           response: "json",
           date: moment().format("YYYYMMDD"),
-          stockNo: rfrep,
+          stockNo: rfRep,
         },
       }
     );
-    console.log(axrep.data.date);
-    console.log(axrep.data.title);
+    if (axRep.data.stat === "OK") {
+      console.log("選擇日期:", axRep.data.date);
+      console.log(axRep.data.title);
+    }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 awaitResponse();
