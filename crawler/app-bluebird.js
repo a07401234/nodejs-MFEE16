@@ -6,8 +6,9 @@
 // // npm i axios
 // // 引入 axios
 const axios = require("axios");
-const fs = require("fs/promises");
+const fs = require("fs");
 const moment = require("moment");
+const Promise = require("bluebird");
 
 // function rfPromise() {
 //   return new Promise((resolve, reject) => {
@@ -57,9 +58,10 @@ const moment = require("moment");
 //   .catch((error) => {
 //     console.error(err);
 //   });
+const readFileBlue = Promise.promisify(fs.readFile);
 
-fs.readFile("stock.txt", "utf8").then(function (data) {
-  //   console.log(data);
+readFileBlue("stock.txt", "utf-8").then(function (data) {
+  console.log(data);
   return axios
     .get("https://www.twse.com.tw/exchangeReport/STOCK_DAY", {
       params: {
