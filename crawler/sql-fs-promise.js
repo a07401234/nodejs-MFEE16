@@ -38,7 +38,7 @@ connection = Promise.promisifyAll(connection);
       );
       console.log(response);
       let resData = response.data.suggestions.shift();
-      let resDataSplit = resDataSplit.split("\t");
+      let resDataSplit = resData.split("\t");
       if (resDataSplit.length > 1) {
         connection.queryAsync(
           `INSERT INTO stock (stock_id, stock_name) VALUES ('${resDataSplit[0]}', '${resDataSplit[1]}');`
