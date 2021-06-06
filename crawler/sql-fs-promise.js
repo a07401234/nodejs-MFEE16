@@ -10,13 +10,15 @@ const fs = require("fs/promises");
 const moment = require("moment");
 const mysql = require("mysql");
 const Promise = require("bluebird");
+// 引入 dotenv
+require("dotenv").config();
 
 // 設定資料庫連線
 let connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "12345",
-  database: "stock",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 // mysql本身是沒有Promise的，所以用bluebird來將連線Promise化
 connection = Promise.promisifyAll(connection);
