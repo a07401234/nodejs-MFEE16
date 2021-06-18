@@ -4,25 +4,27 @@ const express = require("express");
 let app = express();
 
 // middleware 中介函式
-app.use(function (req, res, next) {
-  let current = new Date();
-  console.log(`有人來訪問 在${current}`);
-});
 // 在 express 裡
 // req -> router
 // req -> middlewares...... -> router
+app.use(function (req, res, next) {
+  let current = new Date();
+  console.log(`有人來訪問 在${current}`);
+  // 幾乎都要呼叫，讓他往下繼續
+  next();
+});
 
 // 路由  (express 會由上而下的找，找到就停止)
 app.get("/", function (req, res) {
-  res.send("Hello express");
+  res.send("首頁");
 });
 
 app.get("/about", function (req, res) {
-  res.send("About express");
+  res.send("關於我們");
 });
 
 app.get("/test", function (req, res) {
-  res.send("Test express");
+  res.send("測試頁面");
 });
 
 app.listen(3000, () => {
