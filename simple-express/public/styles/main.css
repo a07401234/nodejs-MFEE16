@@ -1,0 +1,32 @@
+table {
+  font-family: 微軟正黑體;
+  font-size: 15px;
+  width: 250px;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+th {
+  background-color: #f7e4b0;
+  padding: 10px;
+  border: 1px solid rgb(29, 32, 70);
+  color: rgb(29, 32, 70);
+}
+td {
+  background-color: rgb(255, 250, 206);
+  border: 1px solid rgb(29, 32, 70);
+  padding: 5px;
+}
+th:first-child {
+  border-top-left-radius: 10px;
+}
+th:last-child {
+  border-top-right-radius: 10px;
+}
+tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}

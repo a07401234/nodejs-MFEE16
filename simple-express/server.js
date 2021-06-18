@@ -1,5 +1,8 @@
+const connection = require("./utils/db");
+
 // 導入 express 這個 package
 const express = require("express");
+const { render } = require("pug");
 // 利用 express 建立一個 express applocation app
 let app = express();
 
@@ -36,6 +39,15 @@ app.get("/test", function (req, res) {
   res.render("test");
 });
 
-app.listen(3000, () => {
+app.get("/stock", async (req, res) => {
+  let stockData = await connection.queryAsync("SELECT * FROM stock;");
+  console.log(stockData);
+  res.render("stock/list", {
+    stocks: stockData,
+  });
+});
+
+app.listen(3000, async () => {
+  await connection.connectAsync();
   console.log(`跑起來了`);
 });
