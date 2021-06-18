@@ -7,6 +7,15 @@ let app = express();
 // 在 express 裡
 // req -> router
 // req -> middlewares...... -> router
+
+app.use(express.static("public"));
+
+// 第一個是變數 views
+// 第二個是檔案夾名稱
+app.set("views", "views");
+// 告訴 express 我們用的 view engine 是 pug
+app.set("view engine", "pug");
+
 app.use(function (req, res, next) {
   let current = new Date();
   console.log(`有人來訪問 在${current}`);
@@ -16,15 +25,15 @@ app.use(function (req, res, next) {
 
 // 路由  (express 會由上而下的找，找到就停止)
 app.get("/", function (req, res) {
-  res.send("首頁");
+  res.render("index");
 });
 
 app.get("/about", function (req, res) {
-  res.send("關於我們");
+  res.render("about");
 });
 
 app.get("/test", function (req, res) {
-  res.send("測試頁面");
+  res.render("test");
 });
 
 app.listen(3000, () => {
