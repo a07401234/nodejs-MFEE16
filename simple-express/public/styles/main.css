@@ -1,8 +1,32 @@
+#header {
+  margin: 0 auto;
+  height: 50px;
+  background-color: #ebd59b;
+}
+html {
+  font-family: 微軟正黑體;
+  color: #213e7c;
+}
+input {
+  margin: 5px;
+}
+body {
+  margin: 0 auto;
+  background-color: #f3eee1;
+}
+h2 {
+  margin: 0 auto;
+  text-align: center;
+  line-height: 2;
+}
+div {
+  margin: 10px;
+}
 table {
   font-family: 微軟正黑體;
   font-size: 15px;
-  width: 250px;
-  text-align: center;
+  /* width: 250px; */
+  /* text-align: center; */
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -29,4 +53,25 @@ tr:last-child td:first-child {
 
 tr:last-child td:last-child {
   border-bottom-right-radius: 10px;
+}
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 1px 9px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: #213e7c;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
 }

@@ -25,6 +25,9 @@ app.use(function (req, res, next) {
   // 幾乎都要呼叫，讓他往下繼續
   next();
 });
+// 所有中間件底下
+let stockRouter = require("./routes/stock");
+app.use("/stock", stockRouter);
 
 // 路由  (express 會由上而下的找，找到就停止)
 app.get("/", function (req, res) {
@@ -37,24 +40,6 @@ app.get("/about", function (req, res) {
 
 app.get("/test", function (req, res) {
   res.render("test");
-});
-
-app.get("/stock", async (req, res) => {
-  let stockData = await connection.queryAsync("SELECT * FROM stock;");
-  console.log(stockData);
-  res.render("stock/list", {
-    stocks: stockData,
-  });
-});
-
-app.get("/stock/:stockCode", async (req, res) => {
-  let queryResults = await connection.queryAsync(
-    "SELECT * FROM stock_price WHERE stock_id = ? ORDER BY date;",
-    req.params.stockCode
-  );
-  res.render("stock/detail", {
-    stockPrices: queryResults,
-  });
 });
 
 app.listen(3000, async () => {
