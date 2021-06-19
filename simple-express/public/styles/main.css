@@ -75,3 +75,12 @@ tr:last-child td:last-child {
   background-color: #ddd;
   border-radius: 5px;
 }
+.backToStock a {
+  margin: 0 265px;
+  color: #eee;
+  background-color: #213e7c;
+  border: 2px solid #213e7c;
+  border-radius: 5px;
+  padding: 1px 9px;
+  text-decoration: none;
+}

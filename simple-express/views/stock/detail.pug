@@ -20,3 +20,5 @@ block content
         .pagination 
             - for(var p = 1; p < pagination.lastPage; p++)
                 a(href=`/stock/${stock.stock_id}?page=${p}`, class=p==pagination.currentPage?"active":"") #{p}
+    .backToStock 
+        a(href="/stock") 返回上一頁
