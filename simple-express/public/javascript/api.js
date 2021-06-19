@@ -9,6 +9,7 @@ $(function () {
   });
 });
 
+// 使用 axios 抓 api/stocks
 axios
   .get("/api/stocks")
   .then(function (response) {
@@ -16,4 +17,13 @@ axios
   })
   .catch(function (error) {
     console.log(error);
+  });
+
+// 使用 fetch 抓 api/stocks
+fetch("/api/stocks")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
   });
