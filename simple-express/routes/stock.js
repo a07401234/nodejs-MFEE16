@@ -22,7 +22,9 @@ router.get("/:stockCode", async (req, res) => {
     req.params.stockCode
   );
   if (stock.length === 0) {
-    throw new Error("查無代碼");
+    // 查不到 not found
+    // throw new Error("查無代碼");
+    next();
   }
   stock = stock[0];
   // 分頁
