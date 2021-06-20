@@ -110,7 +110,7 @@ select {
 input[type="submit"],
 button {
   width: 100%;
-  background-color: #4caf50;
+  background-color: #213e7c;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -121,7 +121,7 @@ button {
 
 input[type="submit"]:hover,
 button:hover {
-  background-color: #45a049;
+  background-color: #213e7c;
 }
 
 /* navigation */
@@ -130,7 +130,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #4caf50;
+  background-color: #213e7c;
   top: 0;
   width: 100%;
 }

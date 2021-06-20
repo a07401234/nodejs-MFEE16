@@ -84,7 +84,9 @@ router.post(
     if (checkResult.length > 0) {
       return next(new Error("已經註冊過了"));
     }
-    console.log(req.file);
+
+    let filepath = req.file ? "/uploads/" + req.file.filename : null;
+    // console.log(req.file);
     // 沒有註冊過，新增一筆到資料庫
     // bcrypt是密碼加密套件，套件記得都要 require 進來才能使用
     let result = await connection.queryAsync(
@@ -92,9 +94,9 @@ router.post(
       [
         [
           req.body.email,
-          bcrypt.hash(req.body.password, 10),
+          await bcrypt.hash(req.body.password, 10),
           req.body.name,
-          `/uploads/${req.file.filename}`,
+          filepath,
         ],
       ]
     );
@@ -105,6 +107,68 @@ router.post(
 );
 router.get("/login", (req, res) => {
   res.render("auth/login");
+});
+
+// 登入頁
+const loginRules = [
+  body("email").isEmail(),
+  body("password").isLength({ min: 6 }),
+];
+router.get("/login", (req, res) => {
+  res.render("auth/login");
+});
+router.post("/login", async (req, res, next) => {
+  const validateResult = validationResult(req);
+  if (!validateResult.isEmpty()) {
+    // 不是空的，就是有問題
+    return next(new Error("登入資料有問題"));
+  }
+  // 檢查 email 是否存在
+  let member = await connection.queryAsync(
+    "SELECT * FROM members WHERE email = ?",
+    req.body.email
+  );
+  // 如果已經註冊過
+  if (member.length === 0) {
+    return next(new Error("查無此帳號"));
+  }
+  member = member[0];
+
+  // 比對密碼
+  // hash("Test") -> 每一次都一樣
+  // bcrypt.hash(req.body.password) === 資料庫;
+  let result = await bcrypt.compare(req.body.password, member.password);
+  console.log(result);
+  if (result) {
+    req.session.member = {
+      email: member.email,
+      name: member.name,
+      photo: member.photo,
+    };
+    req.session.message = {
+      title: "登入成功",
+      text: "歡迎回來",
+    };
+    // status code: 303
+    res.redirect(303, "/");
+  } else {
+    req.session.member = null;
+    // 處理訊息
+    req.session.message = {
+      title: "登入失敗",
+      text: "請填寫正確帳號密碼",
+    };
+    res.redirect(303, "/auth/login");
+  }
+});
+
+router.get("/logout", (req, res) => {
+  req.session.member = null;
+  req.session.message = {
+    title: "已登出",
+    text: "歡迎下次回來",
+  };
+  res.redirect(303, "/");
 });
 
 module.exports = router;

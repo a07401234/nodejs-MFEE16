@@ -13,14 +13,45 @@ let app = express();
 
 // 加上這個中間件，就能解讀 POST 過來的資料
 app.use(express.urlencoded({ extended: false }));
+// 前端送 json data 時，express 才能解析
+app.use(express.json());
+// 想要可以處理 session
+const expressSession = require("express-session");
+app.use(
+  expressSession({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+  })
+);
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 app.use(express.static("public"));
-
 // 第一個是變數 views
 // 第二個是檔案夾名稱
 app.set("views", "views");
 // 告訴 express 我們用的 view engine 是 pug
 app.set("view engine", "pug");
+
+// 把這個動作寫在中間函式，就可以讓每個路由都用到
+// 就不用每個路由都各自做一次
+// req.session 設定給 res.locals
+app.use(function (req, res, next) {
+  // 把 request 的 session 資料設定給 res 的 locals
+  // views 就可以取的資料
+  res.locals.member = req.session.member;
+  next();
+});
+
+app.use(function (req, res, next) {
+  // 因為訊息只希望被顯示一次！
+  // 所以傳到 views 一次後，就刪掉
+  if (req.session.message) {
+    res.locals.message = req.session.message;
+    delete req.session.message;
+  }
+  next();
+});
 
 app.use(function (req, res, next) {
   let current = new Date();
@@ -38,8 +69,12 @@ app.use("/api", apiRouter);
 let authRouter = require("./routes/auth");
 app.use("/auth", authRouter);
 
+let memberRouter = require("./routes/member");
+app.use("/member", memberRouter);
+
 // 路由  (express 會由上而下的找，找到就停止)
 app.get("/", function (req, res) {
+  res.cookie("lang", "zh-TW");
   res.render("index");
 });
 
