@@ -31,6 +31,9 @@ app.use("/stock", stockRouter);
 
 let apiRouter = require("./routes/api");
 app.use("/api", apiRouter);
+// 註冊頁＆登入頁
+let authRouter = require("./routes/auth");
+app.use("/auth", authRouter);
 
 // 路由  (express 會由上而下的找，找到就停止)
 app.get("/", function (req, res) {
