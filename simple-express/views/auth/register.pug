@@ -3,7 +3,7 @@ extends ../_layouts/master
 block content 
     h1 註冊表點
     
-    form.form#registerFrm(method="POST", action="/auth/register")
+    form.form#registerFrm(method="POST", action="/auth/register", enctype="multipart/form-data")
         div
             label(for="email") Email
             input(name="email", type="mail" value="test@gmail.com")
@@ -16,5 +16,8 @@ block content
         div
             label(for="name") 姓名
             input(name="name", type="text" value="Norman")
+        div
+            label(for="photo") 照片
+            input(name="photo", type="file")
             
         button(type="submit") 送出
