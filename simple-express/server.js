@@ -11,6 +11,9 @@ let app = express();
 // req -> router
 // req -> middlewares...... -> router
 
+// 加上這個中間件，就能解讀 POST 過來的資料
+app.use(express.urlencoded({ extended: false }));
+
 app.use(express.static("public"));
 
 // 第一個是變數 views
